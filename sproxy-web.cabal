@@ -1,0 +1,63 @@
+name:                sproxy-web
+version:             0.1.0.0
+synopsis:            Web interface to sproxy
+description:         Web frontend for managing sproxy
+homepage:            http://bitbucket.org/zalorasea/sproxy-web
+license:             BSD3
+license-file:        LICENSE
+author:              Alp Mestanogullari <alp@zalora.com>
+maintainer:          Alp Mestanogullari <alp@zalora.com>
+copyright:           Zalora South East Asia Pte. Ltd
+category:            Web
+build-type:          Simple
+cabal-version:       >=1.10
+data-files:          static/css/*.min.css,
+                     static/css/*.css,
+                     static/js/*.min.js,
+                     static/js/jquery.jeditable.min.js,
+                     static/js/jquery.color.min.js,
+                     static/loading.gif,
+                     static/fonts/glyphicons-halflings-regular.eot,
+                     static/fonts/glyphicons-halflings-regular.svg,
+                     static/fonts/glyphicons-halflings-regular.ttf,
+                     static/fonts/glyphicons-halflings-regular.woff,
+                     static/js/*.js,
+                     module.nix
+
+executable sproxy-web
+  main-is:             Main.hs
+  other-modules:       Config,
+                       DB,
+                       Entities,
+                       Handler,
+                       Paths_sproxy_web,
+                       SproxyError,
+                       Views.Common,
+                       Views.Common.Page,
+                       Views.DomainList,
+                       Views.DomainPrivileges,
+                       Views.ErrorPage,
+                       Views.GroupList,
+                       Views.Homepage,
+                       Views.MemberList,
+                       Views.PrivilegeRules
+  build-depends:       base >=4.5 && <4.8,
+                       text >=0.11 && <1.2,
+                       bytestring >=0.10 && <0.11,
+                       blaze-html >=0.7 && <0.8,
+                       blaze-markup >=0.6 && <0.7,
+                       aeson >=0.6 && <0.8,
+                       resource-pool >=0.2 && <0.3,
+                       configurator >=0.2 && <0.3,
+                       hflags >=0.4 && <0.5,
+                       postgresql-simple >=0.4 && <0.5,
+                       scotty >=0.6 && <0.8,
+                       wai-middleware-static >=0.4 && <0.5,
+                       wai-extra >=2.0 && <2.1,
+                       mtl >=2.1 && <2.2,
+                       http-types >=0.8 && <0.9
+  hs-source-dirs:      src/
+  default-language:    Haskell2010
+  ghc-options:         -O2 -funbox-strict-fields 
+                       -Wall -rtsopts -threaded
+  ghc-prof-options:    -prof -auto-all

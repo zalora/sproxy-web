@@ -1,0 +1,73 @@
+.alert-danger,
+.alert-error {
+    color: #b94a48;
+    background-color: #f2dede;
+    border-color: #eed3d7;
+}
+
+.alert-success {
+color: #468847;
+background-color: #dff0d8;
+border-color: #d6e9c6;
+}
+
+body {
+    background-color: #eee;
+    padding-top: 50px;
+}
+
+#updatesuccess {
+    display: none;
+    width: 400px;
+    margin: 10px auto;
+}
+
+#updateerror {
+    display: none;
+    width: 400px;
+    margin: 10px auto;
+}
+
+#updateexists {
+    display: none;
+    width: 400px;
+    margin: 10px auto;
+}
+
+#fieldempty {
+    display: none;
+    width: 400px;
+    margin: 10px auto;
+}
+
+#gpsuccess {
+    display: none;
+    width: 400px;
+    margin: 10px auto;
+}
+
+#gperror {
+    display: none;
+    width: 400px;
+    margin: 10px auto;
+}
+
+#edittable {
+    margin: 10px auto;
+    width: 400px;
+    background-color: #ffffff;
+}
+
+#edittable td {
+    min-height: 40px;
+}
+
+#edittable2 {
+    margin: 10px auto;
+    width: 400px;
+    background-color: #ffffff;
+}
+
+#edittable2 td {
+    min-height: 40px;
+}
