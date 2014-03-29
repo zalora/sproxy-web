@@ -29,7 +29,7 @@ executable sproxy-web
   other-modules:       Config,
                        DB,
                        Entities,
-                       Handler,
+                       Handlers,
                        Paths_sproxy_web,
                        SproxyError,
                        Views.Common,
