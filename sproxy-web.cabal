@@ -1,5 +1,5 @@
 name:                sproxy-web
-version:             0.1.0.1
+version:             0.1.0.2
 synopsis:            Web interface to sproxy
 description:         Web frontend for managing sproxy
 homepage:            http://bitbucket.org/zalorasea/sproxy-web
@@ -52,8 +52,8 @@ executable sproxy-web
                        hflags >=0.4 && <0.5,
                        postgresql-simple >=0.4 && <0.5,
                        scotty >=0.6 && <0.8,
-                       wai-middleware-static >=0.4 && <0.5,
-                       wai-extra >=2.0 && <2.1,
+                       wai-middleware-static >=0.4 && <0.6,
+                       wai-extra >=2.0 && <2.2,
                        mtl >=2.1 && <2.2,
                        http-types >=0.8 && <0.9
   hs-source-dirs:      src/
