@@ -1,5 +1,5 @@
 name:                sproxy-web
-version:             0.1.0.0
+version:             0.1.0.1
 synopsis:            Web interface to sproxy
 description:         Web frontend for managing sproxy
 homepage:            http://bitbucket.org/zalorasea/sproxy-web
