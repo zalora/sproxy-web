@@ -2,7 +2,7 @@ name:                sproxy-web
 version:             0.1.0.0
 synopsis:            Web interface to sproxy
 description:         Web frontend for managing sproxy
-homepage:            http://bitbucket.org/zalorasea/sproxy-web
+homepage:            http://github.com/zalora/sproxy-web
 license:             BSD3
 license-file:        LICENSE
 author:              Alp Mestanogullari <alp@zalora.com>
