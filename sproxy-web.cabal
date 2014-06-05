@@ -21,8 +21,7 @@ data-files:          static/css/*.min.css,
                      static/fonts/glyphicons-halflings-regular.svg,
                      static/fonts/glyphicons-halflings-regular.ttf,
                      static/fonts/glyphicons-halflings-regular.woff,
-                     static/js/*.js,
-                     module.nix
+                     static/js/*.js
 
 executable sproxy-web
   main-is:             Main.hs
