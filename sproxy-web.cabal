@@ -40,21 +40,21 @@ executable sproxy-web
                        Views.Homepage,
                        Views.MemberList,
                        Views.PrivilegeRules
-  build-depends:       base >=4.5 && <4.8,
-                       text >=0.11 && <1.2,
-                       bytestring >=0.10 && <0.11,
-                       blaze-html >=0.7 && <0.8,
-                       blaze-markup >=0.6 && <0.7,
-                       aeson >=0.6 && <0.8,
-                       resource-pool >=0.2 && <0.3,
-                       configurator >=0.2 && <0.3,
-                       hflags >=0.4 && <0.5,
-                       postgresql-simple >=0.4 && <0.5,
-                       scotty >=0.6 && <0.8,
-                       wai-middleware-static >=0.4 && <0.5,
-                       wai-extra >=2.0 && <2.1,
-                       mtl >=2.1 && <2.2,
-                       http-types >=0.8 && <0.9
+  build-depends:       base >= 4.5,
+                       text >= 0.11,
+                       bytestring >= 0.10,
+                       blaze-html >= 0.7,
+                       blaze-markup >= 0.6,
+                       aeson >= 0.6,
+                       resource-pool >= 0.2,
+                       configurator >= 0.2,
+                       hflags >= 0.4,
+                       postgresql-simple >= 0.4,
+                       scotty >= 0.6,
+                       wai-middleware-static >= 0.4,
+                       wai-extra >= 2.0,
+                       mtl >= 2.1,
+                       http-types >= 0.8
   hs-source-dirs:      src/
   default-language:    Haskell2010
   ghc-options:         -O2 -funbox-strict-fields 
