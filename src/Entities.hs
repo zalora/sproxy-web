@@ -3,6 +3,7 @@
 module Entities where
 
 import Data.Int
+import Data.Monoid
 import Data.Text.Lazy (Text)
 import Database.PostgreSQL.Simple
 
@@ -199,3 +200,19 @@ deleteGPOf domain gr priv conn =
                  \   AND \"group\" = ? \
                  \   AND privilege = ?"
                  (domain, gr, priv)
+
+-- | completely remove a user from the sproxy db by
+--   removing it from any group it belongs to.
+removeUser :: Text -> Connection -> IO Int64
+removeUser email conn =
+    execute conn "DELETE FROM group_member \
+                 \ WHERE email = ?"
+                 (Only email)
+
+-- | Search an user. Returns a list of matching emails
+searchUser :: Text -> Connection -> IO [Text]
+searchUser searchQuery conn = fmap (map head) $
+    query conn "SELECT email \
+               \ FROM group_member \
+               \ WHERE email LIKE ?"
+               (Only $ searchQuery <> "%")

@@ -9,16 +9,11 @@ import SproxyError
 import Control.Applicative
 import Control.Exception
 import Control.Monad (when)
-import Control.Monad.Trans
-import Data.Aeson hiding (json)
 import Data.Int (Int64)
 import Data.Monoid
-import Data.Pool
 import Data.Text.Lazy as Text
 import Network.HTTP.Types.Status
 import Web.Scotty.Trans
-
-import qualified Data.ByteString.Lazy as LB
 
 import Text.Blaze.Html.Renderer.Text (renderHtml)
 import Text.Blaze.Html5 (Html)
@@ -30,6 +25,7 @@ import Views.GroupList (groupListT)
 import Views.Homepage (homepageT)
 import Views.MemberList (memberListT)
 import Views.PrivilegeRules (privilegeRulesT)
+import Views.Search (searchResultsT)
 
 blaze :: Html -> ActionT SproxyError IO ()
 blaze = Web.Scotty.Trans.html . renderHtml
@@ -41,8 +37,7 @@ errorPage :: SproxyError -> ActionT SproxyError IO ()
 errorPage err = blaze (errorPageT err)
 
 homepage :: DBPool -> ActionT SproxyError IO ()
-homepage _ = do
-    blaze homepageT
+homepage _ = blaze homepageT
 
 ------------------------------------------
 -- handlers related to the group list page
@@ -283,14 +278,28 @@ jsonPostRule pool = do
 
           outputFor t n
 
+-- | POST /search, search string in "search_query"
+searchUserH :: DBPool -> ActionT SproxyError IO ()
+searchUserH pool = do
+  searchStr <- param "search_query"
 
+  matchingEmails <- withDB pool (searchUser searchStr)
+
+  blaze (searchResultsT searchStr matchingEmails)
+
+-- | POST /delete-user, email to delete in "user_email"
+deleteUserH :: DBPool -> ActionT SproxyError IO ()
+deleteUserH pool = do
+  userEmail <- param "user_email"
+  (t, n) <- checked pool "deleted" (removeUser userEmail)
+  outputFor t n
 
 -- utility functions
 
 outputFor :: Text -> Int64 -> ActionT SproxyError IO ()
 outputFor t 0    = status badRequest400 >> text ("no: " <> t)
 outputFor t (-1) = status badRequest400 >> text ("error: " <> t)
-outputFor t n    = text t
+outputFor t _    = text t
 
 checked :: DBPool
         -> Text      -- text to send if it succeeds

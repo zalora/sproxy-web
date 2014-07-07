@@ -71,3 +71,17 @@ body {
 #edittable2 td {
     min-height: 40px;
 }
+
+#searchform {
+    width: 80px;
+}
+
+#searchtable {
+    margin: 10px auto;
+    width: 400px;
+    background-color: #ffffff;
+}
+
+#searchtable td {
+    min-height: 40px;
+}
