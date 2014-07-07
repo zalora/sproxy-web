@@ -9,8 +9,6 @@ import qualified Text.Blaze.Html5 as H
 import Text.Blaze.Html5.Attributes
 import qualified Text.Blaze.Html5.Attributes as A
 
-import Text.Blaze
-
 inp :: Text -> Text -> Html 
 inp name text = 
     H.input ! A.type_ "text" ! A.name (toValue name)
@@ -67,6 +65,12 @@ pageT t cont = do
                     H.li ! A.id "animat-gr" $ H.a ! A.href "/groups" $ "Groups and users"
                     H.li ! A.id "animat-do" $ H.a ! A.href "/domains" $ "Domains and privileges"
 
+                  H.form ! A.id "searchform" ! A.class_ "navbar-form navbar-right"
+                         ! A.method "POST"   ! A.action "/search" $
+                    H.input ! A.type_ "text"
+                            ! A.name  "search_query"
+                            ! A.class_ "form-control"
+                            ! A.placeholder "Search an email"
 
             H.div ! class_ "container content" $ do
                 H.div ! A.class_ "page-header text-center" $ 

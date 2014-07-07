@@ -10,7 +10,6 @@ import SproxyError
 
 import Control.Monad.Trans
 import Data.Pool
-import Database.PostgreSQL.Simple
 import HFlags
 import Network.Wai.Middleware.RequestLogger
 import Network.Wai.Middleware.Static
@@ -35,6 +34,9 @@ sproxyWeb pool = do
     defaultHandler handleEx
 
     get "/"       $ homepage pool
+
+    post "/search" $ searchUserH pool
+    post "/delete-user" $ deleteUserH pool
 
     -- groups
     get "/groups" $ groupList pool           -- this is the group listing page
