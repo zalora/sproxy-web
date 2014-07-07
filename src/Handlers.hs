@@ -177,14 +177,14 @@ handleGPs pool = do
 
     (t, n) <- case operation of
         "add" -> do
-            group <- param "group"
+            grp <- param "group"
             priv  <- param "privilege"
-            checked pool "added" (addGPFor domain group priv)
+            checked pool "added" (addGPFor domain grp priv)
 
         "del" -> do
-            group <- param "group"
+            grp <- param "group"
             priv  <- param "privilege"
-            checked pool "deleted" (deleteGPOf domain group priv)
+            checked pool "deleted" (deleteGPOf domain grp priv)
 
     outputFor t n
 
