@@ -9,11 +9,11 @@ import Text.Blaze.Html5
 import qualified Text.Blaze.Html5 as H
 import Text.Blaze.Html5.Attributes
 import qualified Text.Blaze.Html5.Attributes as A
-
+import qualified Data.Text.Lazy as T
 import Views.Common
 
-searchResultsT :: Text -> [Text] -> Html
-searchResultsT searchStr emails = 
+searchResultsT :: Text -> [(Text, [Text])] -> Html
+searchResultsT searchStr matchingMails = 
     pageT ("Search results") $ do
         H.p ! A.class_ "lead text-center" $ do
             "Emails matching "
@@ -24,9 +24,11 @@ searchResultsT searchStr emails =
           H.table ! A.id "searchtable" ! A.class_ "table table-condensed" $ do
             H.thead $ do
               H.tr $ do
-                H.th ! A.width "40%" ! A.class_ "text-center" $ 
+                H.th ! A.width "30%" ! A.class_ "text-center" $ 
                   "Email address"
-                H.th ! A.width "60%" $ mempty
+                H.th ! A.width "40%" ! A.class_ "text-center" $
+                  "Groups"
+                H.th ! A.width "30%" $ mempty
               H.tbody $
                 emailsHtml
 
@@ -39,8 +41,9 @@ searchResultsT searchStr emails =
         H.script ! A.type_ "text/javascript"
                  ! A.src "/static/js/delete-user.js" $ mempty
 
-  where emailsHtml = mapM_ emailToHtml emails
-        emailToHtml mail = 
+  where emailsHtml = mapM_ emailToHtml matchingMails
+        emailToHtml (mail, groups) = 
           tr $ do
             td $ toHtml mail
+            td $ i $ toHtml (T.intercalate ", " groups)
             td $ a ! A.class_ "delete-btn btn btn-danger btn-xs" $ "Delete from all groups"

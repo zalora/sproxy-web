@@ -6,6 +6,7 @@ import Data.Int
 import Data.Monoid
 import Data.Text.Lazy (Text)
 import Database.PostgreSQL.Simple
+import Database.PostgreSQL.Simple.Types
 
 -- get the list of groups
 getGroups :: Connection -> IO [[Text]]
@@ -210,9 +211,12 @@ removeUser email conn =
                  (Only email)
 
 -- | Search an user. Returns a list of matching emails
-searchUser :: Text -> Connection -> IO [Text]
-searchUser searchQuery conn = fmap (map head) $
-    query conn "SELECT email \
+searchUser :: Text -> Connection -> IO [(Text, [Text])]
+searchUser searchQuery conn = fmap postprocess $
+    query conn "SELECT email, array_agg(\"group\") \
                \ FROM group_member \
-               \ WHERE email LIKE ?"
-               (Only $ searchQuery <> "%")
+               \ WHERE email LIKE ? \
+               \ GROUP BY email"
+               (Only $ "%" <> searchQuery <> "%")
+
+    where postprocess = map (\(mail, groups) -> (mail, fromPGArray groups))
