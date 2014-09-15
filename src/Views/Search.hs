@@ -18,7 +18,9 @@ searchResultsT searchStr matchingMails =
         H.p ! A.class_ "lead text-center" $ do
             "Emails matching "
             H.i $ "\"" >> toHtml searchStr >> "\""
-            
+
+        H.p ! A.class_ "text-center" $ H.i $
+          "(Double-click an email to \"rename\" the user in the sproxy database.)"
 
         H.div ! A.class_ "text-center" ! A.style "margin: 10px auto;" $ 
           H.table ! A.id "searchtable" ! A.class_ "table table-condensed" $ do
@@ -35,15 +37,21 @@ searchResultsT searchStr matchingMails =
         H.div ! A.class_ "alert alert-success" ! A.id "updatesuccess" $
             "Successfully updated."
 
+        H.div ! A.class_ "alert alert-error" ! A.id "updateexists" $
+           "This is already used."
+
         H.div ! A.class_ "alert alert-error" ! A.id "updateerror" $
-            "An error occured when trying to update the groups in the DB."
+            "An error occured when trying to update the email in the DB."
     
         H.script ! A.type_ "text/javascript"
-                 ! A.src "/static/js/delete-user.js" $ mempty
+                    ! A.src "/static/js/delete-user.js" $ mempty
+
+        H.script ! A.type_ "text/javascript"
+                    ! A.src "/static/js/rename-user.js" $ mempty
 
   where emailsHtml = mapM_ emailToHtml matchingMails
         emailToHtml (mail, groups) = 
           tr $ do
-            td $ toHtml mail
+            td ! A.class_ "edit email-edit" $ toHtml mail
             td $ i $ toHtml (T.intercalate ", " groups)
             td $ a ! A.class_ "delete-btn btn btn-danger btn-xs" $ "Delete from all groups"

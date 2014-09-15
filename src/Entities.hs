@@ -220,3 +220,11 @@ searchUser searchQuery conn = fmap postprocess $
                (Only $ "%" <> searchQuery <> "%")
 
     where postprocess = map (\(mail, groups) -> (mail, fromPGArray groups))
+
+renameUser :: Text -> Text -> Connection -> IO Int64
+renameUser oldemail newemail conn =
+  execute conn
+              "UPDATE group_member \
+              \ SET email = ? \
+              \ WHERE email = ?"
+              (newemail, oldemail)

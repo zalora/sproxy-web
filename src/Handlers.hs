@@ -294,6 +294,16 @@ deleteUserH pool = do
   (t, n) <- checked pool "deleted" (removeUser userEmail)
   outputFor t n
 
+-- | POST /rename-user:
+--  - old email in "old_email"
+--  - new email in "new_email"
+renameUserH :: DBPool -> ActionT SproxyError IO ()
+renameUserH pool = do
+  oldEmail   <- param "old_email"
+  newEmail <- param "new_email"
+  (resp, n) <- checked pool "renamed" (renameUser oldEmail newEmail)
+  outputFor resp n
+
 -- utility functions
 
 outputFor :: Text -> Int64 -> ActionT SproxyError IO ()

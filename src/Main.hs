@@ -37,6 +37,7 @@ sproxyWeb pool = do
 
     post "/search" $ searchUserH pool
     post "/delete-user" $ deleteUserH pool
+    post "/rename-user" $ renameUserH pool
 
     -- groups
     get "/groups" $ groupList pool           -- this is the group listing page
