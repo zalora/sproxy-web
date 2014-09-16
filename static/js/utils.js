@@ -11,9 +11,7 @@ function makeEditable(cl, dataGetter, url) {
         $.post( url
               , dataGetter(value, prevValue, thisTr)
         ).done(function(data) {
-            if(data == "updated" || data == "renamed") {
-                fadeInOut("#updatesuccess");
-            }
+            fadeInOut("#updatesuccess");
         }).fail(function(data) {
             if(data == "exists")
             {
@@ -24,7 +22,7 @@ function makeEditable(cl, dataGetter, url) {
                 fadeInOut("#updateerror");
                 $(thisTd).text(prevValue);
             }
-        }, { indicator: '/static/loading.gif' }
+        }, { indicator: '<img src="/static/loading.gif" />' }
         );
 
         edits[cl] = '';

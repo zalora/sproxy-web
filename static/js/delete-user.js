@@ -4,13 +4,7 @@ function deleteUser(email, row, onSucc, onErr) {
 	$.post( deleteUrl
 		  , { user_email: email }
 	).done(function(data) {
-		if(data == "deleted")
-		{
-			onSucc(row);
-		}
-		else {
-			onErr(data);
-		}
+		onSucc(row);
 	}).fail(onErr);
 }
 

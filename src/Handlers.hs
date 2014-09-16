@@ -50,16 +50,16 @@ jsonUpdateGroup pool = do
     (t, n) <- case operation of
              "add" -> do
                 g <- param "group"
-                checked pool "added" (addGroup g)
+                checked pool (addGroup g)
 
              "del" -> do
                 g <- param "group"
-                checked pool "deleted" (removeGroup g)
+                checked pool (removeGroup g)
 
              "upd" -> do
                 old <- param "old"
                 new <- param "new"
-                checked pool "updated" (updateGroup old new)
+                checked pool (updateGroup old new)
 
              _ -> status badRequest400 >> return ("incorrect operation", (-1))
 
@@ -99,16 +99,16 @@ jsonPostMembers pool = do
     (t, n) <- case operation of
         "add" -> do
             m <- param "member"
-            checked pool "added" (addMemberTo m groupName)
+            checked pool (addMemberTo m groupName)
 
         "del" -> do
             m <- param "member"
-            checked pool "deleted" (removeMemberOf m groupName)
+            checked pool (removeMemberOf m groupName)
 
         "upd" -> do
             old <- param "old"
             new <- param "new"
-            checked pool "updated" (updateMemberOf old new groupName)
+            checked pool (updateMemberOf old new groupName)
 
         _     -> status badRequest400 >> return ("incorrect operation", (-1))
 
@@ -131,16 +131,16 @@ jsonUpdateDomain pool = do
     (t, n) <- case operation of
              "add" -> do
                 d <- param "domain"
-                checked pool "added" (addDomain d)
+                checked pool (addDomain d)
 
              "del" -> do
                 d <- param "domain"
-                checked pool "deleted" (removeDomain d)
+                checked pool (removeDomain d)
 
              "upd" -> do
                 old <- param "old"
                 new <- param "new"
-                checked pool "updated" (updateDomain old new)
+                checked pool (updateDomain old new)
 
              _ -> status badRequest400 >> return ("incorrect operation", (-1))
 
@@ -179,12 +179,12 @@ handleGPs pool = do
         "add" -> do
             grp <- param "group"
             priv  <- param "privilege"
-            checked pool "added" (addGPFor domain grp priv)
+            checked pool (addGPFor domain grp priv)
 
         "del" -> do
             grp <- param "group"
             priv  <- param "privilege"
-            checked pool "deleted" (deleteGPOf domain grp priv)
+            checked pool (deleteGPOf domain grp priv)
 
     outputFor t n
 
@@ -198,16 +198,16 @@ jsonPostDomainPrivileges pool = do
     (t, n) <- case operation of
         "add" -> do
             p <- param "privilege"
-            checked pool "added" (addPrivilegeToDomain p domain)
+            checked pool (addPrivilegeToDomain p domain)
 
         "del" -> do
             p <- param "privilege"
-            checked pool "deleted" (removePrivilegeOfDomain p domain)
+            checked pool (removePrivilegeOfDomain p domain)
 
         "upd" -> do
             old <- param "old"
             new <- param "new"
-            checked pool "updated" (updatePrivilegeOfDomain old new domain)
+            checked pool (updatePrivilegeOfDomain old new domain)
 
         _     -> status badRequest400 >> return ("incorrect operation", (-1))
 
@@ -238,7 +238,7 @@ jsonPostRule pool = do
         "add" -> addRule domain privilege
         "del" -> delRule domain privilege
         "upd" -> updRule domain privilege
-        _     -> text "err"
+        _     -> status badRequest400 >> text "bad operation"
 
     where 
       addRule domain privilege = do
@@ -246,7 +246,6 @@ jsonPostRule pool = do
           method <- param "method"
 
           (t, n) <- checked pool 
-                            "added" 
                             (addRuleToPrivilege domain privilege path method)
 
           outputFor t n
@@ -255,8 +254,7 @@ jsonPostRule pool = do
           path   <- param "path"
           method <- param "method"
 
-          (t, n) <- checked pool 
-                            "deleted" 
+          (t, n) <- checked pool
                             (deleteRuleFromPrivilege domain privilege path method)
 
           outputFor t n
@@ -272,8 +270,7 @@ jsonPostRule pool = do
           new <- param ("new" <> what)
           otherField <- param $ if what == "path" then "method" else "path"
 
-          (t, n) <- checked pool 
-                            "updated" 
+          (t, n) <- checked pool
                             (updFunc domain privilege new old otherField)
 
           outputFor t n
@@ -291,7 +288,7 @@ searchUserH pool = do
 deleteUserH :: DBPool -> ActionT SproxyError IO ()
 deleteUserH pool = do
   userEmail <- param "user_email"
-  (t, n) <- checked pool "deleted" (removeUser userEmail)
+  (t, n) <- checked pool (removeUser userEmail)
   outputFor t n
 
 -- | POST /rename-user:
@@ -301,7 +298,7 @@ renameUserH :: DBPool -> ActionT SproxyError IO ()
 renameUserH pool = do
   oldEmail   <- param "old_email"
   newEmail <- param "new_email"
-  (resp, n) <- checked pool "renamed" (renameUser oldEmail newEmail)
+  (resp, n) <- checked pool (renameUser oldEmail newEmail)
   outputFor resp n
 
 -- utility functions
@@ -312,11 +309,10 @@ outputFor t (-1) = status badRequest400 >> text ("error: " <> t)
 outputFor t _    = text t
 
 checked :: DBPool
-        -> Text      -- text to send if it succeeds
         -> (Connection -> IO Int64) -- request
         -> ActionT SproxyError IO (Text, Int64)
-checked pool defaultText req = 
+checked pool req = 
     withDB pool req'
 
     where req' c = flip catch (\(e :: SomeException) -> return (Text.pack (show e), -1))
-                              ( (defaultText,) <$> req c )
+                              ( ("",) <$> req c )

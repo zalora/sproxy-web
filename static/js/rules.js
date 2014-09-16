@@ -7,12 +7,7 @@ function sendRule(pathField, methodField, onSucc, onErr, addRow) {
     $.post( postUrl
           , { operation: "add", path: pathField, method: methodField }
     ).done(function(data) {
-        if(data == "added") {
-            onSucc(pathField, methodField, addRow);
-        }
-        else {
-            onErr(data);
-        }
+        onSucc(pathField, methodField, addRow);
     }).fail(onErr);
 }
 
@@ -31,6 +26,14 @@ function appendRow(pathField, methodField, addRow)
 
     makeEditable('.path-edit', pathUpdate, postUrl);
     makeEditable('.method-edit', methodUpdate, postUrl);
+
+    $('.delete-btn').click(function() {
+        var hisTr = $(this).parent().parent();
+        var path  = $(hisTr).children("td").eq(0).text();
+        var method = $(hisTr).children("td").eq(1).text();
+
+        deleteRule(path, method, hisTr, removeRow, showError);
+    });
 }
 
 $('.add-btn').click(function() {
@@ -50,12 +53,7 @@ function deleteRule(pathField, methodField, row, onSucc, onErr) {
     $.post( postUrl
           , { operation: "del", path: pathField, method: methodField }
     ).done(function(data) {
-        if(data == "deleted") {
-            onSucc(row);
-        }
-        else {
-            onErr(data);
-        }
+        onSucc(row);
     }).fail(onErr);
 }
 

@@ -42,12 +42,7 @@ function sendGroup(groupField, onSucc, onErr, addRow) {
     $.post( postUrl 
           , { operation: "add", group: groupField } 
     ).done(function(data) {
-        if(data == "added") {
-            onSucc(groupField, addRow);
-        }
-        else {
-            onErr(data);
-        }
+        onSucc(groupField, addRow);
     }).fail(onErr);
 }
 
@@ -55,13 +50,7 @@ function deleteGroup(groupField, row, onSucc, onErr) {
     $.post( postUrl 
           , { operation: "del", group: groupField }
     ).done(function(data) {
-        if(data == "deleted")
-        {
-            onSucc(row);
-        }
-        else {
-            onErr(data);
-        }
+        onSucc(row);
     }).fail(onErr);
 }
 

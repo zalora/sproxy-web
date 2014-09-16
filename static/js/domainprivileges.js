@@ -42,12 +42,7 @@ function sendPrivilege(privilegeField, onSucc, onErr, addRow) {
     $.post( postUrl 
           , { operation: "add", privilege: privilegeField } 
     ).done(function(data) {
-        if(data == "added") {
-            onSucc(privilegeField, addRow);
-        }
-        else {
-            onErr(data);
-        }
+        onSucc(privilegeField, addRow);
     }).fail(onErr);
 }
 
@@ -55,13 +50,7 @@ function deletePrivilege(privilegeField, row, onSucc, onErr) {
     $.post( postUrl 
           , { operation: "del", privilege: privilegeField }
     ).done(function(data) {
-        if(data == "deleted")
-        {
-            onSucc(row);
-        }
-        else {
-            onErr(data);
-        }
+        onSucc(row);
     }).fail(onErr);
 }
 
@@ -103,7 +92,7 @@ function arrayDiff(array1, array2)
 }
 
 // we refresh groups/privileges every 5 seconds
-var refreshRate = 5000;
+var refreshRate = 1000;
 
 var groupsUrl = '/groups.json';
 
@@ -183,12 +172,7 @@ function sendGroupPriv(groupField, privField, onSucc, onErr, btnRow) {
     $.post( gpUrl 
           , { operation: "add", group: groupField, privilege: privField } 
     ).done(function(data) {
-        if(data == "added") {
-            onSucc(groupField, privField, btnRow);
-        }
-        else {
-            onErr(data);
-        }
+        onSucc(groupField, privField, btnRow);
     }).fail(onErr);
 }
 
@@ -236,12 +220,6 @@ function deleteGP(groupF, privF, row, onSucc, onErr)
     $.post( gpUrl 
           , { operation: "del", group: groupF, privilege: privF }
     ).done(function(data) {
-        if(data == "deleted")
-        {
-            onSucc(row);
-        }
-        else {
-            onErr(data);
-        }
+        onSucc(row);
     }).fail(onErr);
 }

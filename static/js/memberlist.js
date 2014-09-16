@@ -35,12 +35,7 @@ function sendMember(memberField, onSucc, onErr, addRow) {
     $.post( postUrl 
           , { operation: "add", member: memberField } 
     ).done(function(data) {
-        if(data == "added") {
-            onSucc(memberField, addRow);
-        }
-        else {
-            onErr(data);
-        }
+        onSucc(memberField, addRow);
     }).fail(onErr);
 }
 
@@ -48,13 +43,7 @@ function deleteMember(memberField, row, onSucc, onErr) {
     $.post( postUrl 
           , { operation: "del", member: memberField }
     ).done(function(data) {
-        if(data == "deleted")
-        {
             onSucc(row);
-        }
-        else {
-            onErr(data);
-        }
     }).fail(onErr);
 }
 

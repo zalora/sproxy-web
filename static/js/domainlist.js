@@ -42,12 +42,7 @@ function sendDomain(domainField, onSucc, onErr, addRow) {
     $.post( postUrl 
           , { operation: "add", domain: domainField } 
     ).done(function(data) {
-        if(data == "added") {
-            onSucc(domainField, addRow);
-        }
-        else {
-            onErr(data);
-        }
+        onSucc(domainField, addRow);
     }).fail(onErr);
 }
 
@@ -55,13 +50,7 @@ function deleteDomain(domainField, row, onSucc, onErr) {
     $.post( postUrl 
           , { operation: "del", domain: domainField }
     ).done(function(data) {
-        if(data == "deleted")
-        {
-            onSucc(row);
-        }
-        else {
-            onErr(data);
-        }
+        onSucc(row);
     }).fail(onErr);
 }
 

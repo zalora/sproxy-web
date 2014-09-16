@@ -20,7 +20,7 @@ searchResultsT searchStr matchingMails =
             H.i $ "\"" >> toHtml searchStr >> "\""
 
         H.p ! A.class_ "text-center" $ H.i $
-          "(Double-click an email to \"rename\" the user in the sproxy database.)"
+          "(Click on an email to \"rename\" the user in the sproxy database.)"
 
         H.div ! A.class_ "text-center" ! A.style "margin: 10px auto;" $ 
           H.table ! A.id "searchtable" ! A.class_ "table table-condensed" $ do
