@@ -2,15 +2,15 @@
 
 module Views.GroupList (groupListT) where
 
-import Data.Text.Lazy (Text)
-import Data.Monoid
+import           Data.Text.Lazy (Text)
+import           Data.Monoid
 
-import Text.Blaze.Html5
+import           Text.Blaze.Html5
 import qualified Text.Blaze.Html5 as H
-import Text.Blaze.Html5.Attributes
+import           Text.Blaze.Html5.Attributes
 import qualified Text.Blaze.Html5.Attributes as A
 
-import Views.Common
+import           Views.Common
 
 groupListT :: [Text] -> Html
 groupListT gs = 

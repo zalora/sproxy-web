@@ -2,12 +2,12 @@
 
 module Views.ErrorPage (errorPageT) where
 
-import Text.Blaze.Html5
+import           Text.Blaze.Html5
 import qualified Text.Blaze.Html5 as H
-import Text.Blaze.Html5.Attributes
+import           Text.Blaze.Html5.Attributes
 
-import SproxyError
-import Views.Common
+import           SproxyError
+import           Views.Common
 
 errorPageT :: SproxyError -> Html
 errorPageT err = do

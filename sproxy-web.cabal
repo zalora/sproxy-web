@@ -32,7 +32,6 @@ executable sproxy-web
                        Paths_sproxy_web,
                        SproxyError,
                        Views.Common,
-                       Views.Common.Page,
                        Views.DomainList,
                        Views.DomainPrivileges,
                        Views.ErrorPage,
