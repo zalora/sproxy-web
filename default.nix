@@ -1,5 +1,9 @@
 { pkgs ? import <nixpkgs> {}
-, src ? ./. # Eventually want to filter out ignores
+, src ?  builtins.filterSource (path: type:
+    type != "unknown" &&
+    baseNameOf path != ".git" &&
+    baseNameOf path != "result" &&
+    baseNameOf path != "dist") ./.
 }:
 
 {
