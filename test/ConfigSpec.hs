@@ -8,6 +8,7 @@ import           Data.String.Interpolate
 import           Data.String.Interpolate.Util
 import           HFlags
 import           System.Directory
+import           System.Environment
 import           System.IO.Temp
 import           Test.Hspec
 
@@ -23,7 +24,11 @@ spec = do
           port = 42
         |]
       _ <- $initHFlags "sproxy-web - Web interface to the sproxy permissions database"
-      getConfig `shouldReturn` ("foo", 42)
+      getConfig flags_config `shouldReturn` ("foo", 42)
+
+    it "parses the example config file" $ do
+      getConfig "example.config" `shouldReturn`
+        ("hostaddr=127.0.0.1 user=alp dbname=alp", 8001)
 
 
 inTempDirectory :: IO a -> IO a
