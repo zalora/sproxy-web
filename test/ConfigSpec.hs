@@ -8,7 +8,6 @@ import           Data.String.Interpolate
 import           Data.String.Interpolate.Util
 import           HFlags
 import           System.Directory
-import           System.Environment
 import           System.IO.Temp
 import           Test.Hspec
 

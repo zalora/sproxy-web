@@ -6,8 +6,6 @@ import Control.Applicative
 import Data.ByteString (ByteString)
 import Data.Configurator as C
 import HFlags
-import System.IO.Unsafe (unsafePerformIO)
-import System.Environment
 
 defineFlag "c:config" ("sproxy-web.config" :: String) "config file"
 

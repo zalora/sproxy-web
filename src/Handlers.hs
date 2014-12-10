@@ -178,13 +178,15 @@ handleGPs pool = do
     (t, n) <- case operation of
         "add" -> do
             grp <- param "group"
-            priv  <- param "privilege"
+            priv <- param "privilege"
             checked pool (addGPFor domain grp priv)
 
         "del" -> do
             grp <- param "group"
-            priv  <- param "privilege"
+            priv <- param "privilege"
             checked pool (deleteGPOf domain grp priv)
+
+        _ -> status badRequest400 >> return ("incorrect operation", (-1))
 
     outputFor t n
 
