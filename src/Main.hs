@@ -9,11 +9,14 @@ import Paths_sproxy_web
 import SproxyError
 
 import Control.Monad.Trans
+import Data.Default.Class
 import Data.Pool
 import HFlags
+import Network.Wai
 import Network.Wai.Middleware.RequestLogger
 import Network.Wai.Middleware.Static
 import Web.Scotty.Trans
+import System.IO
 
 main :: IO ()
 main = do
@@ -21,11 +24,16 @@ main = do
     pool <- createDBPool
     scottyT port id id (sproxyWeb pool)
 
+requestLogger :: MonadIO m => m Middleware
+requestLogger = liftIO $ mkRequestLogger def{
+        destination = Handle stderr
+    }
+
 sproxyWeb :: Pool Connection -> ScottyT SproxyError IO ()
 sproxyWeb pool = do
     dataDir <- liftIO $ getDataFileName ""
     -- let's log the requests
-    middleware logStdoutDev
+    middleware =<< requestLogger
     -- serve static files, using the generated Path_sproxy_web module
     -- to make it easily deployable
     middleware (staticPolicy $ addBase dataDir)
