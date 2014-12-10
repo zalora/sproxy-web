@@ -8,9 +8,9 @@ import Database.PostgreSQL.Simple
 type DBPool = Pool Connection
 
 -- Initialize our connection pool
-createDBPool :: IO DBPool
-createDBPool =
-    createPool (connectPostgreSQL dbConnectionString)
+createDBPool :: Config -> IO DBPool
+createDBPool config =
+    createPool (connectPostgreSQL (dbConnectionString config))
                close
                1   -- stripe count
                100 -- amount of secs it stays alive

@@ -22,10 +22,11 @@ import System.IO
 main :: IO ()
 main = do
     _    <- $initHFlags "sproxy-web - Web interface to the sproxy permissions database"
-    pool <- createDBPool
+    config <- getConfig flags_config
+    pool <- createDBPool config
     let warpSettings =
-            setPort port $
-            setBeforeMainLoop (hPutStrLn stderr ("Listening on port " ++ show port)) $
+            setPort (port config) $
+            setBeforeMainLoop (hPutStrLn stderr ("Listening on port " ++ show (port config))) $
             -- see https://hackage.haskell.org/package/scotty-0.9.0/docs/Web-Scotty-Trans.html#t:Options
             setFdCacheDuration 0 $
             defaultSettings

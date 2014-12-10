@@ -24,11 +24,11 @@ spec = do
           port = 42
         |]
       _ <- $initHFlags "sproxy-web - Web interface to the sproxy permissions database"
-      getConfig flags_config `shouldReturn` ("foo", 42)
+      getConfig flags_config `shouldReturn` Config "foo" 42
 
     it "parses the example config file" $ do
       getConfig "example.config" `shouldReturn`
-        ("hostaddr=127.0.0.1 user=alp dbname=alp", 8001)
+        Config "hostaddr=127.0.0.1 user=alp dbname=alp" 8001
 
 
 inTempDirectory :: IO a -> IO a
