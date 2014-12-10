@@ -13,6 +13,7 @@ import Data.Default.Class
 import Data.Pool
 import HFlags
 import Network.Wai
+import Network.Wai.Handler.Warp hiding (Connection)
 import Network.Wai.Middleware.RequestLogger
 import Network.Wai.Middleware.Static
 import Web.Scotty.Trans
@@ -22,7 +23,14 @@ main :: IO ()
 main = do
     _    <- $initHFlags "sproxy-web - Web interface to the sproxy permissions database"
     pool <- createDBPool
-    scottyT port id id (sproxyWeb pool)
+    let warpSettings =
+            setPort port $
+            setBeforeMainLoop (hPutStrLn stderr ("Listening on port " ++ show port)) $
+            -- see https://hackage.haskell.org/package/scotty-0.9.0/docs/Web-Scotty-Trans.html#t:Options
+            setFdCacheDuration 0 $
+            defaultSettings
+
+    scottyOptsT (Options 1 warpSettings) id id (sproxyWeb pool)
 
 requestLogger :: MonadIO m => m Middleware
 requestLogger = liftIO $ mkRequestLogger def{
