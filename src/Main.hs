@@ -5,7 +5,6 @@ module Main where
 import Config
 import DB
 import Handlers
-import Paths_sproxy_web
 import SproxyError
 
 import Control.Monad.Trans
@@ -26,26 +25,27 @@ main = do
     pool <- createDBPool config
     let warpSettings =
             setPort (port config) $
-            setBeforeMainLoop (hPutStrLn stderr ("Listening on port " ++ show (port config))) $
+            setBeforeMainLoop (do
+                hPutStrLn stderr ("Serving static files from " ++ staticDir config)
+                hPutStrLn stderr ("Listening on port " ++ show (port config))) $
             -- see https://hackage.haskell.org/package/scotty-0.9.0/docs/Web-Scotty-Trans.html#t:Options
             setFdCacheDuration 0 $
             defaultSettings
 
-    scottyOptsT (Options 1 warpSettings) id id (sproxyWeb pool)
+    scottyOptsT (Options 1 warpSettings) id id (sproxyWeb (staticDir config) pool)
 
 requestLogger :: MonadIO m => m Middleware
 requestLogger = liftIO $ mkRequestLogger def{
         destination = Handle stderr
     }
 
-sproxyWeb :: Pool Connection -> ScottyT SproxyError IO ()
-sproxyWeb pool = do
-    dataDir <- liftIO $ getDataFileName ""
+sproxyWeb :: FilePath -> Pool Connection -> ScottyT SproxyError IO ()
+sproxyWeb staticDirectory pool = do
     -- let's log the requests
     middleware =<< requestLogger
     -- serve static files, using the generated Path_sproxy_web module
     -- to make it easily deployable
-    middleware (staticPolicy $ addBase dataDir)
+    middleware (staticPolicy (addBase staticDirectory))
 
     -- error page for uncaught exceptions
     defaultHandler handleEx
