@@ -21,6 +21,8 @@ spec :: Spec
 spec = with app $ do
   describe "sproxyWeb" $ do
     it "doesn't serve source files" $ do
-      get "/sproxy-web.cabal" `shouldRespondWith` 500
+      get "/sproxy-web.cabal" `shouldRespondWith` 404
     it "serve static file" $ do
       get "/static/loading.gif" `shouldRespondWith` 200
+    it "returns 404 for non-existing routes" $ do
+      get "/foo" `shouldRespondWith` 404

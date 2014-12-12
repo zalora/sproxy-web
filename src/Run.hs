@@ -79,5 +79,3 @@ sproxyWeb staticDirectory pool = do
 
     -- add/remove group privileges
     post "/domain/:domain/group_privileges" $ handleGPs pool -- endpoint for POSTing privilege granting/removal for groups
-
-    notFound $ raise NotFound
