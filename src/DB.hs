@@ -1,16 +1,16 @@
 module DB (createDBPool, withDB, DBPool, Connection) where
 
-import Config
 import Control.Monad.Trans
 import Data.Pool
 import Database.PostgreSQL.Simple
+import Data.ByteString (ByteString)
 
 type DBPool = Pool Connection
 
 -- Initialize our connection pool
-createDBPool :: Config -> IO DBPool
-createDBPool config =
-    createPool (connectPostgreSQL (dbConnectionString config))
+createDBPool :: ByteString -> IO DBPool
+createDBPool connectionString =
+    createPool (connectPostgreSQL connectionString)
                close
                1   -- stripe count
                100 -- amount of secs it stays alive

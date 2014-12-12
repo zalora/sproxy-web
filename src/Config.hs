@@ -35,8 +35,8 @@ getConfig configFile = do
 getStaticDir :: IO FilePath
 getStaticDir = do
     currentDir <- getCurrentDirectory
-    wwwExists <- doesDirectoryExist (currentDir </> "static")
-    if wwwExists then do
+    staticExists <- doesDirectoryExist (currentDir </> "static")
+    if staticExists then do
         hPutStrLn stderr ("Serving static files from " ++ currentDir ++
                           " -- This is bad since it probably allows to publicly access source code files.")
         return currentDir
