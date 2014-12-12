@@ -53,9 +53,45 @@ executable sproxy-web
                        wai-middleware-static >= 0.4,
                        wai-extra >= 2.0,
                        mtl >= 2.1,
-                       http-types >= 0.8
+                       http-types >= 0.8,
+                       data-default-class,
+                       wai,
+                       warp,
+                       directory,
+                       filepath
   hs-source-dirs:      src/
   default-language:    Haskell2010
-  ghc-options:         -O2 -funbox-strict-fields 
+  ghc-options:         -O2 -funbox-strict-fields
                        -Wall -rtsopts -threaded -fno-warn-unused-do-bind
   ghc-prof-options:    -prof -auto-all
+
+test-suite spec
+  type: exitcode-stdio-1.0
+  ghc-options:
+    -Wall -rtsopts -threaded -fno-warn-unused-do-bind
+  default-language: Haskell2010
+  hs-source-dirs: src, test
+  main-is: Spec.hs
+  build-depends:
+    base == 4.*,
+    hspec,
+    hspec-wai,
+    interpolate,
+    temporary,
+    bytestring,
+    configurator,
+    hflags,
+    directory,
+    filepath,
+    postgresql-simple,
+    http-types,
+    blaze-html,
+    mtl,
+    data-default-class,
+    resource-pool,
+    wai,
+    warp,
+    wai-extra,
+    wai-middleware-static,
+    scotty,
+    text
