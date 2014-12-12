@@ -17,15 +17,6 @@ import           Config
 spec :: Spec
 spec = do
   describe "getConfig" $ do
-    it "uses 'sproxy-web.config' as default config file" $ inTempDirectory $ do
-      writeFile "sproxy-web.config" $ unindent [i|
-          db_connection_string = "foo"
-          port = 42
-        |]
-      _ <- $initHFlags "sproxy-web - Web interface to the sproxy permissions database"
-      config <- getConfig flags_config
-      (dbConnectionString config, port config) `shouldBe` ("foo", 42)
-
     it "parses the example config file" $ do
       config <- getConfig "example.config"
       (dbConnectionString config, port config) `shouldBe` ("hostaddr=127.0.0.1 user=alp dbname=alp", 8001)
