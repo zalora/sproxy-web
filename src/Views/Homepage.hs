@@ -2,7 +2,6 @@
 
 module Views.Homepage (homepageT) where
 
-import           Data.Monoid (mempty)
 import           Text.Blaze.Html5
 import qualified Text.Blaze.Html5 as H
 import qualified Text.Blaze.Html5.Attributes as A

@@ -2,7 +2,6 @@
 
 module Views.Common (pageT, inp, sel) where
 
-import           Data.Monoid
 import           Data.Text.Lazy (Text)
 import           Text.Blaze.Html5 hiding (option)
 import qualified Text.Blaze.Html5 as H
@@ -10,9 +9,9 @@ import           Text.Blaze.Html5.Attributes hiding (name)
 import qualified Text.Blaze.Html5.Attributes as A
 
 inp :: Text -> Text -> Html 
-inp name text = 
+inp name txt =
     H.input ! A.type_ "text" ! A.name (toValue name)
-            ! A.id (toValue name) ! A.value (toValue text)
+            ! A.id (toValue name) ! A.value (toValue txt)
 
 sel :: Text -> [Text] -> Html
 sel name options = 

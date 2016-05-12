@@ -2,7 +2,6 @@
 
 module Config where
 
-import Control.Applicative
 import Control.Exception
 import Data.ByteString (ByteString)
 import Data.Configurator as C

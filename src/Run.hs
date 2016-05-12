@@ -7,12 +7,10 @@ import DB
 import Handlers
 import SproxyError
 
-import Control.Monad.Trans
 import Data.Default.Class
 import Data.Pool
 import HFlags
-import Network.Wai
-import Network.Wai.Handler.Warp hiding (Connection)
+import Network.Wai.Handler.Warp
 import Network.Wai.Middleware.RequestLogger
 import Network.Wai.Middleware.Static
 import Web.Scotty.Trans

@@ -3,7 +3,6 @@
 module Views.DomainList (domainListT) where
 
 import           Data.Text.Lazy (Text)
-import           Data.Monoid
 
 import           Text.Blaze.Html5
 import qualified Text.Blaze.Html5 as H

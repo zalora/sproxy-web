@@ -6,7 +6,6 @@ import DB
 import Entities
 import SproxyError
 
-import Control.Applicative
 import Control.Exception
 import Control.Monad (when)
 import Data.Int (Int64)
