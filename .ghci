@@ -1,2 +1,0 @@
-:set -isrc -itest -fno-warn-unused-do-bind
-:set -idist/build/autogen
