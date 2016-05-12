@@ -15,7 +15,7 @@ app :: IO Application
 app = do
     pool <- createDBPool "something"
     sDir <- getStaticDir
-    scottyAppT id id $ sproxyWeb sDir pool
+    scottyAppT id $ sproxyWeb sDir pool
 
 spec :: Spec
 spec = with app $ do

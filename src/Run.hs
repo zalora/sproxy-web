@@ -17,6 +17,7 @@ import Network.Wai.Middleware.RequestLogger
 import Network.Wai.Middleware.Static
 import Web.Scotty.Trans
 import System.IO
+import System.IO.Unsafe (unsafePerformIO)
 
 run :: IO ()
 run = do
@@ -32,17 +33,12 @@ run = do
             setFdCacheDuration 0 $
             defaultSettings
 
-    scottyOptsT (Options 1 warpSettings) id id (sproxyWeb (staticDir config) pool)
-
-requestLogger :: MonadIO m => m Middleware
-requestLogger = liftIO $ mkRequestLogger def{
-        destination = Handle stderr
-    }
+    scottyOptsT (Options 1 warpSettings) id (sproxyWeb (staticDir config) pool)
 
 sproxyWeb :: FilePath -> Pool Connection -> ScottyT SproxyError IO ()
 sproxyWeb staticDirectory pool = do
     -- let's log the requests
-    middleware =<< requestLogger
+    middleware . unsafePerformIO $ mkRequestLogger def{ destination = Handle stderr }
 
     middleware (staticPolicy (hasPrefix "static" >-> addBase staticDirectory))
 
@@ -79,3 +75,4 @@ sproxyWeb staticDirectory pool = do
 
     -- add/remove group privileges
     post "/domain/:domain/group_privileges" $ handleGPs pool -- endpoint for POSTing privilege granting/removal for groups
+
