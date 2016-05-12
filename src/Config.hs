@@ -8,7 +8,6 @@ import Data.Configurator as C
 import HFlags
 import System.Directory
 import System.FilePath
-import System.IO
 
 import Paths_sproxy_web
 
@@ -36,8 +35,6 @@ getStaticDir = do
     currentDir <- getCurrentDirectory
     staticExists <- doesDirectoryExist (currentDir </> "static")
     if staticExists then do
-        hPutStrLn stderr ("Serving static files from " ++ currentDir ++
-                          " -- This is bad since it probably allows to publicly access source code files.")
         return currentDir
     else do
         cabalDataDir <- getDataDir
