@@ -1,5 +1,5 @@
 name: sproxy-web
-version: 0.2.0.0
+version: 0.3
 synopsis: Web interface to sproxy database
 description:
   Web frontend for managing sproxy.
