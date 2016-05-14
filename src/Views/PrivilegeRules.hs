@@ -44,8 +44,8 @@ privilegeRulesT domain privilege rules =
                     mapM_ ruleToHtml rules
                 H.tfoot $ do
                     H.tr $ do
-                        H.td $ inp "path" "Path"
-                        H.td $ inp "method" "Method"
+                        H.td $ inp "path" "%, /, /path, etc."
+                        H.td $ inp "method" "GET, POST, etc."
                         H.td $ H.button ! A.class_ "btn btn-success btn-xs add-btn"
                                         $ "Add a rule"
 

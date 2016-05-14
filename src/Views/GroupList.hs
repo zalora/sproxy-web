@@ -30,7 +30,7 @@ groupListT gs =
                     mapM_ groupToHtml gs
                 H.tfoot $ do
                     H.tr $ do
-                        H.td $ inp "gname" "Group"
+                        H.td $ inp "gname" "Some Group"
                         H.td $ H.button ! A.class_ "btn btn-success btn-xs add-btn"
                                         $ "Add a group"
                         H.td $ mempty

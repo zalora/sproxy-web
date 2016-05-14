@@ -9,9 +9,10 @@ import           Text.Blaze.Html5.Attributes hiding (name)
 import qualified Text.Blaze.Html5.Attributes as A
 
 inp :: Text -> Text -> Html 
-inp name txt =
-    H.input ! A.type_ "text" ! A.name (toValue name)
-            ! A.id (toValue name) ! A.value (toValue txt)
+inp name ph =
+    H.input ! A.type_ "text"
+            ! A.placeholder (toValue ph)
+            ! A.id (toValue name) ! A.name (toValue name)
 
 sel :: Text -> [Text] -> Html
 sel name options = 

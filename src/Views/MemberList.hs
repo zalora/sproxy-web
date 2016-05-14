@@ -36,7 +36,7 @@ memberListT members groupName =
                     mapM_ memberToHtml members
                 H.tfoot $ do
                     H.tr $ do
-                        H.td $ inp "member" "%@zalora.com"
+                        H.td $ inp "member" "%@example.com"
                         H.td $ H.button ! A.class_ "btn btn-success btn-xs add-btn"
                                         $ "Add a member"
 

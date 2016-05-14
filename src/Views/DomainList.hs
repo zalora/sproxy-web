@@ -30,7 +30,7 @@ domainListT gs =
                     mapM_ domainToHtml gs
                 H.tfoot $ do
                     H.tr $ do
-                        H.td $ inp "domain" "Domain"
+                        H.td $ inp "domain" "example.org"
                         H.td $ H.button ! A.class_ "btn btn-success btn-xs add-btn"
                                         $ "Add a domain"
                         H.td $ mempty

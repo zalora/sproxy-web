@@ -42,7 +42,7 @@ domainPrivilegesT domain privileges groups groupPrivs =
                             mapM_ privToHtml privileges
                         H.tfoot $ do
                             H.tr $ do
-                                H.td $ inp "privilege" "Privilege"
+                                H.td $ inp "privilege" "Privilege name"
                                 H.td $ H.button ! A.class_ "btn btn-success btn-xs add-btn"
                                                 $ "Add a privilege"
                                 H.td $ mempty
