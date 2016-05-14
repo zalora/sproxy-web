@@ -1,3 +1,10 @@
+0.3.1
+=====
+
+  * Use placeholders instead of initial values in input fields
+  * Deleted duplicate "Home" link
+  * Removed a joke about $5/month
+
 0.3
 ===
 
