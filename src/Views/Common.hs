@@ -60,7 +60,6 @@ pageT t cont = do
 
                 H.div ! A.class_ "collapse navbar-collapse" $ do
                   H.ul ! A.class_ "nav navbar-nav" $ do
-                    H.li ! class_ {- "active" -} "" $ H.a ! A.href "/" $ "Home"
                     H.li ! A.id "animat-gr" $ H.a ! A.href "/groups" $ "Groups and users"
                     H.li ! A.id "animat-do" $ H.a ! A.href "/domains" $ "Domains and privileges"
 
