@@ -21,11 +21,5 @@ homepageT =
             " links, "
             H.a ! A.href "#" ! A.class_ "up-there" $ "up there"
             "."
-        H.p ! A.class_ "lead text-center" $ do
-            "Subscribe to "
-            H.i $ "sproxy-web"
-            " for only " 
-            H.b $ "$5/month"
-            "!"
 
         H.script ! A.type_ "text/javascript" ! A.src "/static/js/up-there.js" $ mempty
