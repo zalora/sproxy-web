@@ -41,6 +41,7 @@ executable sproxy-web
     Entities
     Handlers
     Paths_sproxy_web
+    Run
     SproxyError
     Views.Common
     Views.DomainList
@@ -50,6 +51,7 @@ executable sproxy-web
     Views.Homepage
     Views.MemberList
     Views.PrivilegeRules
+    Views.Search
   build-depends:
       base >= 4.8 && < 5
     , aeson                 >= 0.6
