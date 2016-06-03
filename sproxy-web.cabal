@@ -61,11 +61,12 @@ executable sproxy-web
     , configurator          >= 0.2
     , data-default-class
     , directory
+    , docopt                >= 0.7
     , filepath
-    , hflags                >= 0.4
     , http-types            >= 0.8
     , mtl                   >= 2.1
     , postgresql-simple     >= 0.4
+    , raw-strings-qq        >= 1.1
     , resource-pool         >= 0.2
     , scotty                >= 0.10
     , text                  >= 0.11

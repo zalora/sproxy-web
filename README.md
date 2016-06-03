@@ -22,11 +22,12 @@ Usage
 =====
 Type `sproxy-web --help` to see usage summary:
 
-    sproxy-web - Web interface to the sproxy permissions database
+    Usage:
+      sproxy-web [options]
 
-      -h         --help, --usage, --version  Display help and version information.
-                 --undefok                   Whether to fail on unrecognized command line options.
-      -c STRING  --config=STRING             config file (default: sproxy-web.config, from module: Config)
+    Options:
+      -c, --config=FILE        Configuration file [default: sproxy-web.conf]
+      -h, --help               Show this message
 
 
 The config file must have the following simplistic structure.

@@ -1,4 +1,5 @@
-{-# LANGUAGE OverloadedStrings, TemplateHaskell #-}
+{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE QuasiQuotes #-}
 
 module Run where
 
@@ -8,21 +9,44 @@ import Handlers
 import SproxyError
 
 import Data.Default.Class
+import Data.Maybe (fromJust)
 import Data.Pool
-import HFlags
+import Data.Version (showVersion)
 import Network.Wai.Handler.Warp
 import Network.Wai.Middleware.RequestLogger
 import Network.Wai.Middleware.Static
-import Web.Scotty.Trans
+import Paths_sproxy_web (version) -- from cabal
+import System.Environment (getArgs)
 import System.IO
 import System.IO.Unsafe (unsafePerformIO)
+import Text.RawString.QQ (r)
+import Web.Scotty.Trans
+import qualified System.Console.Docopt.NoTH as O
+
+usage :: String
+usage =  "sproxy-web " ++ showVersion version ++
+  " web interface to the sproxy database" ++ [r|
+
+Usage:
+  sproxy-web [options]
+
+Options:
+  -c, --config=FILE        Configuration file [default: sproxy-web.conf]
+  -h, --help               Show this message
+
+|]
 
 run :: IO ()
 run = do
-    _    <- $initHFlags "sproxy-web - Web interface to the sproxy permissions database"
-    config <- getConfig flags_config
+  doco <- O.parseUsageOrExit usage
+  args <- O.parseArgsOrExit doco =<< getArgs
+  if args `O.isPresent` O.longOption "help"
+  then putStrLn $ O.usage doco
+  else do
+    config <- getConfig . fromJust . O.getArg args $ O.longOption "config"
     pool <- createDBPool (dbConnectionString config)
-    let warpSettings =
+    let
+      warpSettings =
             setPort (port config) $
             setBeforeMainLoop (do
                 hPutStrLn stderr ("Serving static files from " ++ staticDir config)

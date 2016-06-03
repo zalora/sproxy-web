@@ -5,13 +5,10 @@ module Config where
 import Control.Exception
 import Data.ByteString (ByteString)
 import Data.Configurator as C
-import HFlags
 import System.Directory
 import System.FilePath
 
 import Paths_sproxy_web
-
-defineFlag "c:config" ("sproxy-web.config" :: String) "config file"
 
 data Config = Config {
     dbConnectionString :: ByteString,
