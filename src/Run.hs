@@ -55,7 +55,7 @@ run = do
             setFdCacheDuration 0 $
             defaultSettings
 
-    scottyOptsT (Options 1 warpSettings) id (sproxyWeb (staticDir config) pool)
+    runSettings warpSettings =<< scottyAppT id (sproxyWeb (staticDir config) pool)
 
 sproxyWeb :: FilePath -> Pool Connection -> ScottyT SproxyError IO ()
 sproxyWeb staticDirectory pool = do
