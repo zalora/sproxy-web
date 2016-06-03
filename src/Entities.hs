@@ -38,7 +38,7 @@ removeGroup gname conn =
 -- get members of a group
 getMembersFor :: Text -> Connection -> IO [[Text]]
 getMembersFor gname conn =
-    query conn "SELECT email::text FROM group_member \
+    query conn "SELECT email FROM group_member \
                \ WHERE \"group\" = ? \
                \ ORDER BY email ASC"
                (Only gname)
@@ -213,7 +213,7 @@ removeUser email conn =
 -- | Search an user. Returns a list of matching emails
 searchUser :: Text -> Connection -> IO [(Text, [Text])]
 searchUser searchQuery conn = fmap postprocess $
-    query conn "SELECT email::text, array_agg(\"group\") \
+    query conn "SELECT email, array_agg(\"group\") \
                \ FROM group_member \
                \ WHERE email LIKE ? \
                \ GROUP BY email"
