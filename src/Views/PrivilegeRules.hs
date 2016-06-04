@@ -33,16 +33,16 @@ privilegeRulesT domain privilege rules =
         H.div ! A.class_ "text-center" ! A.style "margin: 10px auto;" $ do
             H.table ! A.id "edittable" 
                     ! A.class_ "table table-condensed" $ do
-                H.thead $ do
+                H.thead $
                     H.tr $ do
                         H.th ! A.width "50%" ! A.class_ "text-center" $ 
                             "Path"
                         H.th ! A.width "30%" ! A.class_ "text-center" $
                             "Method"
                         H.th ! A.width "20%" $ mempty
-                H.tbody $ do
+                H.tbody $
                     mapM_ ruleToHtml rules
-                H.tfoot $ do
+                H.tfoot $
                     H.tr $ do
                         H.td $ inp "path" "%, /, /path, etc."
                         H.td $ inp "method" "GET, POST, etc."
@@ -64,8 +64,9 @@ privilegeRulesT domain privilege rules =
         H.script ! A.type_ "text/javascript"
                  ! A.src "/static/js/rules.js" $ mempty
 
-    where ruleToHtml (path, method) = do
+    where ruleToHtml (path, method) =
               tr $ do
                 td ! A.class_ "path-edit edit" $ toHtml path
                 td ! A.class_ "method-edit edit" $ toHtml method
                 td $ a ! A.class_ "delete-btn btn btn-danger btn-xs" $ "Delete"
+

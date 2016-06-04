@@ -23,7 +23,7 @@ sel name options =
               H.option ! A.value (toValue option) $ toHtml option
 
 pageT :: Text -> Html -> Html
-pageT t cont = do
+pageT t cont =
     docTypeHtml ! lang "en" $ do
         H.head $ do
             H.title (toHtml t)
@@ -45,7 +45,7 @@ pageT t cont = do
 
         body $ do
 
-            H.div ! A.class_ "navbar navbar-inverse navbar-fixed-top" $ do
+            H.div ! A.class_ "navbar navbar-inverse navbar-fixed-top" $
               H.div ! A.class_ "container" $ do
 
                 -- header for the navbar
@@ -75,6 +75,4 @@ pageT t cont = do
                 H.div ! A.class_ "page-header text-center" $ 
                     H.h1 $ toHtml t
                 cont
- 
-            --  Latest compiled and minified JavaScript
-            -- script ! A.type_ "text/javascript" ! src "/static/js/jquery-1.10.2.min.js" $ mempty
+

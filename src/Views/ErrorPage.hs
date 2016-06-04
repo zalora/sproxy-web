@@ -10,8 +10,9 @@ import           SproxyError
 import           Views.Common
 
 errorPageT :: SproxyError -> Html
-errorPageT err = do
-    pageT "Error!" $ do
+errorPageT err =
+    pageT "Error!" $
             H.div ! class_ "alert alert-error text-center" $ do
                 p $ toHtml (show err)
                 p $ a ! href "##" ! onclick "history.go(-1); return false;" $ "Go back"
+

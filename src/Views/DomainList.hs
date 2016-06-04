@@ -20,20 +20,20 @@ domainListT gs =
         H.div ! A.class_ "text-center" ! A.style "margin: 10px auto;" $
             H.table ! A.id "edittable" 
                     ! A.class_ "table table-condensed" $ do
-                H.thead $ do
+                H.thead $
                     H.tr $ do
                         H.th ! A.width "50%" ! A.class_ "text-center" $ 
                             "Domain name"
                         H.th ! A.width "30%" $ mempty
                         H.th ! A.width "20%" $ mempty
-                H.tbody $ do
+                H.tbody $
                     mapM_ domainToHtml gs
-                H.tfoot $ do
+                H.tfoot $
                     H.tr $ do
                         H.td $ inp "domain" "example.org"
                         H.td $ H.button ! A.class_ "btn btn-success btn-xs add-btn"
                                         $ "Add a domain"
-                        H.td $ mempty
+                        H.td mempty
 
         H.div ! A.class_ "alert alert-success" ! A.id "updatesuccess" $
             "Successfully updated."
@@ -47,7 +47,7 @@ domainListT gs =
         H.script ! A.type_ "text/javascript"
                  ! A.src "/static/js/domainlist.js" $ mempty
 
-    where domainToHtml d = do
+    where domainToHtml d =
               tr $ do
                 td ! A.class_ "edit domain-edit" $ toHtml d
                 td $
@@ -56,3 +56,4 @@ domainListT gs =
                     a ! href "#"
                       ! A.class_ "privileges-btn btn btn-link btn-xs"
                       $ "Privileges"
+

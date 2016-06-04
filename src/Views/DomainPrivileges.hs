@@ -32,20 +32,20 @@ domainPrivilegesT domain privileges groups groupPrivs =
                 H.div ! A.class_ "text-center" ! A.style "margin: 10px auto;" $
                     H.table ! A.id "edittable" 
                             ! A.class_ "table table-condensed" $ do
-                        H.thead $ do
+                        H.thead $
                             H.tr $ do
                                 H.th ! A.width "50%" ! A.class_ "text-center" $ 
                                     "Privilege"
                                 H.th ! A.width "30%" $ mempty
                                 H.th ! A.width "20%" $ mempty
-                        H.tbody $ do
+                        H.tbody $
                             mapM_ privToHtml privileges
-                        H.tfoot $ do
+                        H.tfoot $
                             H.tr $ do
                                 H.td $ inp "privilege" "Privilege name"
                                 H.td $ H.button ! A.class_ "btn btn-success btn-xs add-btn"
                                                 $ "Add a privilege"
-                                H.td $ mempty
+                                H.td mempty
 
                 H.div ! A.class_ "alert alert-success" ! A.id "updatesuccess" $
                     "Successfully updated."
@@ -65,16 +65,16 @@ domainPrivilegesT domain privileges groups groupPrivs =
                 H.div ! A.class_ "text-center" ! A.style "margin: 10px auto;" $
                     H.table ! A.id "edittable2" 
                             ! A.class_ "table table-condensed" $ do
-                        H.thead $ do
+                        H.thead $
                             H.tr $ do
                                 H.th ! A.width "40%" ! A.class_ "text-center" $ 
                                     "Group"
                                 H.th ! A.width "40%" ! A.class_ "text-center" $
                                     "Privilege"
                                 H.th ! A.width "20%" $ mempty
-                        H.tbody $ do
+                        H.tbody $
                             mapM_ groupPrivToHtml groupPrivs
-                        H.tfoot $ do
+                        H.tfoot $
                             H.tr $ do
                                 H.td $ sel "groupSel" groups
                                 H.td $ sel "privSel"  privileges
@@ -90,7 +90,7 @@ domainPrivilegesT domain privileges groups groupPrivs =
         H.script ! A.type_ "text/javascript"
                  ! A.src "/static/js/domainprivileges.js" $ mempty
 
-    where privToHtml p = do
+    where privToHtml p =
               tr $ do
                 td ! A.class_ "edit privilege-edit" $ toHtml p
                 td $ 
@@ -100,9 +100,10 @@ domainPrivilegesT domain privileges groups groupPrivs =
                       ! class_ "rule-btn btn btn-link btn-xs"
                       $ "Rules"
 
-          groupPrivToHtml (group, priv) = do
+          groupPrivToHtml (group, priv) =
               tr $ do
                 td $ toHtml group
                 td $ toHtml priv
                 td $ 
                     a ! A.class_ "delete-gp-btn btn btn-danger btn-xs" $ "Delete"
+
