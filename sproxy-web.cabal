@@ -56,7 +56,6 @@ executable sproxy-web
     , blaze-html               >= 0.7
     , blaze-markup             >= 0.6
     , bytestring               >= 0.10
-    , configurator             >= 0.2
     , data-default-class
     , directory
     , docopt                   >= 0.7
