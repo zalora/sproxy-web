@@ -115,7 +115,7 @@ jsonUpdateGroup pool = do
                 new <- param "new"
                 checked pool (updateGroup old new)
 
-             _ -> status badRequest400 >> return ("incorrect operation", (-1))
+             _ -> status badRequest400 >> return ("incorrect operation", -1)
 
     outputFor t n
 
@@ -164,7 +164,7 @@ jsonPostMembers pool = do
             new <- param "new"
             checked pool (updateMemberOf old new groupName)
 
-        _     -> status badRequest400 >> return ("incorrect operation", (-1))
+        _     -> status badRequest400 >> return ("incorrect operation", -1)
 
     outputFor t n
 
@@ -196,7 +196,7 @@ jsonUpdateDomain pool = do
                 new <- param "new"
                 checked pool (updateDomain old new)
 
-             _ -> status badRequest400 >> return ("incorrect operation", (-1))
+             _ -> status badRequest400 >> return ("incorrect operation", -1)
 
     outputFor t n
 
@@ -240,7 +240,7 @@ handleGPs pool = do
             priv <- param "privilege"
             checked pool (deleteGPOf domain grp priv)
 
-        _ -> status badRequest400 >> return ("incorrect operation", (-1))
+        _ -> status badRequest400 >> return ("incorrect operation", -1)
 
     outputFor t n
 
@@ -265,7 +265,7 @@ jsonPostDomainPrivileges pool = do
             new <- param "new"
             checked pool (updatePrivilegeOfDomain old new domain)
 
-        _     -> status badRequest400 >> return ("incorrect operation", (-1))
+        _     -> status badRequest400 >> return ("incorrect operation", -1)
 
     outputFor t n
 
@@ -370,6 +370,6 @@ checked :: Pool Connection
 checked pool req =
     withDB pool req'
 
-    where req' c = flip catch (\(e :: SomeException) -> return (Text.pack (show e), -1))
+    where req' c = handle (\(e :: SomeException) -> return (Text.pack (show e), -1))
                               ( ("",) <$> req c )
 

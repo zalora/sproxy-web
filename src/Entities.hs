@@ -2,6 +2,7 @@
 
 module Entities where
 
+import Control.Arrow (second)
 import Data.Int
 import Data.Monoid
 import Data.Text.Lazy (Text)
@@ -212,14 +213,14 @@ removeUser email conn =
 
 -- | Search an user. Returns a list of matching emails
 searchUser :: Text -> Connection -> IO [(Text, [Text])]
-searchUser searchQuery conn = fmap postprocess $
+searchUser searchQuery conn = postprocess <$>
     query conn "SELECT email::text, array_agg(\"group\") \
                \ FROM group_member \
                \ WHERE email LIKE ? \
                \ GROUP BY email"
                (Only $ "%" <> searchQuery <> "%")
 
-    where postprocess = map (\(mail, groups) -> (mail, fromPGArray groups))
+    where postprocess = map (second fromPGArray)
 
 renameUser :: Text -> Text -> Connection -> IO Int64
 renameUser oldemail newemail conn =
