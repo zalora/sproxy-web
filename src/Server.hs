@@ -24,7 +24,7 @@ type Listen = Either Port FilePath
 
 
 server :: Listen -> String -> FilePath -> IO ()
-server socketSpec connectionString staticDir =
+server socketSpec connectionString dataDir =
   bracket
     ( do
       sock <- createSocket socketSpec
@@ -40,8 +40,8 @@ server socketSpec connectionString staticDir =
       destroyAllResources pgsql )
     ( \(sock, pgsql) -> do
       listen sock maxListenQueue
-      hPutStrLn stderr $ "Static files from `" ++ staticDir ++ "'"
-      runSettingsSocket defaultSettings sock =<< app pgsql staticDir )
+      hPutStrLn stderr $ "Static files from `" ++ dataDir ++ "'"
+      runSettingsSocket defaultSettings sock =<< app pgsql dataDir )
 
 
 createSocket :: Listen -> IO Socket

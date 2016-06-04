@@ -41,10 +41,10 @@ app c p = do
   scottyAppT id (sproxyWeb c p logger)
 
 sproxyWeb :: Pool Connection -> FilePath -> Middleware -> ScottyT SproxyError IO ()
-sproxyWeb pool staticDirectory logger = do
+sproxyWeb pool dataDirectory logger = do
   middleware logger
 
-  middleware (staticPolicy (hasPrefix "static" >-> addBase staticDirectory))
+  middleware (staticPolicy (hasPrefix "static" >-> addBase dataDirectory))
 
   -- error page for uncaught exceptions
   defaultHandler handleEx
