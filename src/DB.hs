@@ -1,20 +1,10 @@
-module DB (createDBPool, withDB, DBPool, Connection) where
+module DB (
+  withDB
+) where
 
 import Control.Monad.Trans
 import Data.Pool
 import Database.PostgreSQL.Simple
-import Data.ByteString (ByteString)
-
-type DBPool = Pool Connection
-
--- Initialize our connection pool
-createDBPool :: ByteString -> IO DBPool
-createDBPool connectionString =
-    createPool (connectPostgreSQL connectionString)
-               close
-               1   -- stripe count
-               100 -- amount of secs it stays alive
-               50  -- at most 50 concurrent connections
 
 -- Pick a connection handle from the pool and use it to
 -- execute the given request.
@@ -22,7 +12,7 @@ createDBPool connectionString =
 -- although we're always using it in the `ActionT SproxyError IO` monad
 -- but the more general type signature keeps us from doing anything irrelevant
 withDB :: MonadIO m 
-       => DBPool 
+       => Pool Connection
        -> (Connection -> IO a)
        -> m a
 withDB pool act = liftIO $ withResource pool (liftIO . act)

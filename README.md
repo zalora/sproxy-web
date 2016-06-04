@@ -26,12 +26,13 @@ Type `sproxy-web --help` to see usage summary:
       sproxy-web [options]
 
     Options:
-      -c, --config=FILE        Configuration file [default: sproxy-web.conf]
+
+      -c, --connstr=CONNSTR    PostgreSQL connection string [default: dbname=sproxy]
+      -d, --datadir=DIR        Data directory including static files [default: <cabal data dir>]
+
+      -s, --socket=SOCK        Listen on this UNIX socket [default: /tmp/sproxy-web.sock]
+      -p, --port=PORT          Instead of UNIX socket, listen on this TCP port (localhost)
+
       -h, --help               Show this message
 
-
-The config file must have the following simplistic structure.
-
-    db_connection_string = "host=127.0.0.1 port=4534 user=alp dbname=alp password=blah"
-    port = 8003
 

@@ -11,7 +11,7 @@ maintainer: Igor Pashev <pashev.igor@gmail.com>
 copyright: 2014-2016, Zalora South East Asia Pte. Ltd
 category: Web
 build-type: Simple
-extra-source-files: README.md ChangeLog.md example.config
+extra-source-files: README.md ChangeLog.md
 cabal-version: >= 1.20
 data-files:
   static/css/*.css,
@@ -36,12 +36,10 @@ executable sproxy-web
   main-is: Main.hs
   hs-source-dirs: src
   other-modules:
-    Config
+    Application
     DB
     Entities
-    Handlers
-    Paths_sproxy_web
-    Run
+    Server
     SproxyError
     Views.Common
     Views.DomainList
@@ -53,25 +51,27 @@ executable sproxy-web
     Views.PrivilegeRules
     Views.Search
   build-depends:
-      base >= 4.8 && < 5
-    , aeson                 >= 0.6
-    , blaze-html            >= 0.7
-    , blaze-markup          >= 0.6
-    , bytestring            >= 0.10
-    , configurator          >= 0.2
+      base                     >= 4.8 && < 5
+    , aeson                    >= 0.6
+    , blaze-html               >= 0.7
+    , blaze-markup             >= 0.6
+    , bytestring               >= 0.10
+    , configurator             >= 0.2
     , data-default-class
     , directory
-    , docopt                >= 0.7
+    , docopt                   >= 0.7
     , filepath
-    , http-types            >= 0.8
-    , mtl                   >= 2.1
-    , postgresql-simple     >= 0.4
-    , raw-strings-qq        >= 1.1
-    , resource-pool         >= 0.2
-    , scotty                >= 0.10
-    , text                  >= 0.11
+    , http-types               >= 0.8
+    , interpolatedstring-perl6
+    , mtl                      >= 2.1
+    , network                  >= 2.6
+    , postgresql-simple        >= 0.4
+    , resource-pool            >= 0.2
+    , scotty                   >= 0.10
+    , text                     >= 0.11
+    , unix                     >= 2.7
     , wai
-    , wai-extra             >= 2.0
-    , wai-middleware-static >= 0.4
-    , warp                  >= 3.2
+    , wai-extra                >= 2.0
+    , wai-middleware-static    >= 0.4
+    , warp                     >= 3.2
 
