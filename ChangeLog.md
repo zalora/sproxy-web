@@ -1,3 +1,9 @@
+0.4
+===
+
+  * Listen on UNIX socket (default), TCP allowed on localhost only.
+  * Use command-line options instead of configuration file
+
 0.3.1
 =====
 
