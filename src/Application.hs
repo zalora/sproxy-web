@@ -16,7 +16,9 @@ import Data.Text.Lazy as Text
 import Database.PostgreSQL.Simple (Connection)
 import Network.HTTP.Types.Status
 import Network.Wai (Application, Middleware)
-import Network.Wai.Middleware.RequestLogger
+import Network.Wai.Middleware.RequestLogger (Destination(Handle),
+  mkRequestLogger, RequestLoggerSettings(destination, outputFormat),
+  OutputFormat(CustomOutputFormat))
 import Network.Wai.Middleware.Static
 import System.IO
 import Text.Blaze.Html.Renderer.Text (renderHtml)
@@ -31,13 +33,15 @@ import Views.PrivilegeRules (privilegeRulesT)
 import Views.Search (searchResultsT)
 import Web.Scotty.Trans
 
-import SproxyError
 import DB
 import Entities
+import LogFormat (logFormat)
+import SproxyError
 
 app :: Pool Connection -> FilePath -> IO Application
 app c p = do
-  logger <- mkRequestLogger def{ destination = Handle stderr }
+  logger <- mkRequestLogger def{ destination = Handle stderr
+                               , outputFormat = CustomOutputFormat logFormat }
   scottyAppT id (sproxyWeb c p logger)
 
 sproxyWeb :: Pool Connection -> FilePath -> Middleware -> ScottyT SproxyError IO ()

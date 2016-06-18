@@ -39,6 +39,7 @@ executable sproxy-web
     Application
     DB
     Entities
+    LogFormat
     Server
     SproxyError
     Views.Common
@@ -59,6 +60,7 @@ executable sproxy-web
     , data-default-class
     , directory
     , docopt                   >= 0.7
+    , fast-logger
     , filepath
     , http-types               >= 0.8
     , interpolatedstring-perl6
